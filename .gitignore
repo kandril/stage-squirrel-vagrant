@@ -4,3 +4,4 @@
 # Vagrant stuff
 /.vagrant
 *.log
+app/
