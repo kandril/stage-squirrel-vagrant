@@ -4,15 +4,48 @@ Vagrant.configure("2") do |config|
   config.vm.define "stage-squirrel-dev" do |dev|
     dev.vm.hostname = "stage-squirrel.dev"
 
-    dev.vm.network :forwarded_port, guest: 8500, host: 18500
-    dev.vm.network :forwarded_port, guest: 5858, host: 58585
+    dev.vm.network :forwarded_port, guest: 80, host: 8080, auto_correct: true
+    dev.vm.network :forwarded_port, guest: 5858, host: 58585, auto_correct: true
 
     dev.vm.provider :virtualbox do |vb|
       vb.name = "stage-squirrel-dev"
     end
 
-    dev.vm.provision :shell, path: "bootstrap.sh"
+    telegramFeedbackId = 74757107
+    appPort = 18500
+    mysql = {
+      "host" => "localhost",
+      "user" => "root",
+      "password" => "root",
+      "dbname" => "stagetest"
+    }
 
-    dev.vm.synced_folder "app/", "/home/vagrant/Stage-Squirrel"
+    dev.vm.provision :shell do |shell1|
+      shell1.name = "Bootstrap"
+      shell1.path = "lib/bootstrap.sh"
+      shell1.privileged = true
+      shell1.env = {
+        "SQ_APP_LISTEN_PORT" => appPort,
+        "SQ_DB_USER" => mysql["user"],
+        "SQ_DB_PW" => mysql["password"],
+        "SQ_DB_NAME" => mysql["dbname"]
+      }
+    end
+
+    dev.vm.provision :shell do |shell2|
+      shell2.name = "Install App"
+      shell2.path = "lib/install-app.sh"
+      shell2.privileged = false
+      shell2.env = {
+        "SQ_APP_LISTEN_PORT" => appPort,
+        "SQ_TELEGRAM_FEEDBACK_ID" => telegramFeedbackId,
+        "SQ_DB_HOST" => mysql["host"],
+        "SQ_DB_USER" => mysql["user"],
+        "SQ_DB_PW" => mysql["password"],
+        "SQ_DB_NAME" => mysql["dbname"]
+      }
+    end
+
+    dev.vm.synced_folder "Stage-Squirrel/", "/home/vagrant/Stage-Squirrel", create: true
   end
 end

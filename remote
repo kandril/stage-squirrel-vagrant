@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+usageInfo() {
+  echo 'Remote control the Stage-Squirrel installation in our Vagrant VM somewhat:'
+  echo '    -r, --restart  Remotely call "stagesquirrel restart".'
+  echo '    -s, --status   Remotely call "stagesquirrel status".'
+  echo '    -u, --update   Remotely call "git pull" on the current installation.'
+}
+
+# [Main]:
+if test $# -eq 1; then
+  case "$1" in
+    -r|--restart)
+      bash ./bin/restart-app.sh
+      ;;
+    -s|--status)
+      bash ./bin/app-status.sh
+      ;;
+    -u|--update)
+      bash ./bin/update-app.sh
+      ;;
+    *)
+      usageInfo
+      ;;
+  esac
+else
+  usageInfo
+fi

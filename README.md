@@ -5,13 +5,16 @@ This is a simple VM setup for testing the [EF/Stage-Squirrel](https://github.com
 2. Open a terminal with access to the `vagrant` and `git` commands.
 3. `git clone` this repository and `cd` into the copy.
 4. Type `vagrant up`, hit your return-key and drink some coffee, while vagrant does stuff.
-5. When vagrant finished its processing, type `vagrant global-status`. A VM named *"dstage-squirrel-dev"* should appear in the list.
+5. When vagrant finished its processing, type `vagrant global-status`. A VM named *"stage-squirrel-dev"* should appear in the list.
 
 ## Usage
-1. Open a terminal with access to the `vagrant` command.
-2. Type `vagrant ssh`
-3. You should be logged into the VM via **SSH**, now.
-4. You can start with the installation steps mentioned in the [EF/Stage-Squirrel repository's README section](https://github.com/eurofurence/Stage-Squirrel/README.man)
+1. You should be able to get to the app on [http://localhost:8080](http://localhost:8080), now.
+2. The inital_load.sql was already run for you, you only need to create and OP an admin user, now ;)
+
+## Tools
+* This vagrant VM project is also shipped with a neat **remote**.
+* If you need to make use of it, just `chmod a+x remote` in your git-cloned directory and have a look at the usage-info of the **remote** by entering `./remote`.
+* Have fun =]
 
 ## Troubleshooting
 Dare to pester me by using this repo's Issue-tracker. ;)
