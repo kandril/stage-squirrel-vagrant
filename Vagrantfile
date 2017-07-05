@@ -46,6 +46,18 @@ Vagrant.configure("2") do |config|
       }
     end
 
+    dev.vm.provision :shell do |shell3|
+      shell3.name = "Prepare Helper scripts"
+      shell3.path = "lib/prepare-helper.sh"
+      shell3.privileged = false
+      shell3.env = {
+        "SQ_DB_USER" => mysql["user"],
+        "SQ_DB_PW" => mysql["password"],
+        "SQ_DB_NAME" => mysql["dbname"]
+      }
+    end
+
     dev.vm.synced_folder "Stage-Squirrel/", "/home/vagrant/Stage-Squirrel", create: true
+    dev.vm.synced_folder "scripts/", "/home/vagrant/.helper", create: true
   end
 end

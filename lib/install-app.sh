@@ -20,14 +20,14 @@ git checkout develop
 echo 'Configuring config/startup.conf ...'
 SQ_LOGDIR=$PWD/log
 NODE_HOME=$(which node | sed 's!/node!!g')
-sed -in -e \
+sed -n -e \
   's!^program_home=.*!program_home='"$PWD"'!g' \
   config/startup.conf
-sed -in -e \
+sed -n -e \
   's!^nodejs_bin_dir=.*!nodejs_bin_dir='"$NODE_HOME"'!g' \
   config/startup.conf
-sed -in -e 's!^user=.*!user=vagrant!g' config/startup.conf
-sed -in -e \
+sed -n -e 's!^user=.*!user=vagrant!g' config/startup.conf
+sed -n -e \
   's!^logdir=.*!logdir='"$SQ_LOGDIR"'/console.log!g' \
   config/startup.conf
 echo 'done.'

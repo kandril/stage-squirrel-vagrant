@@ -9,10 +9,10 @@ This is a simple VM setup for testing the [EF/Stage-Squirrel](https://github.com
 
 ## Usage
 1. You should be able to get to the app on [http://localhost:8080](http://localhost:8080), now.
-2. The inital_load.sql was already run for you, you only need to create and OP an admin user, now ;)
+2. The inital_load.sql was already run for you, you only need to create a **user** and use the **remote** helper script to activate (and make it an admin) , now ;)
 
 ## Tools
-* This vagrant VM project is also shipped with a neat **remote**.
+* This vagrant VM project is also shipped with a neat **remote** helper script.
 * If you need to make use of it, just `chmod a+x remote` in your git-cloned directory and have a look at the usage-info of the **remote** by entering `./remote`.
 * Have fun =]
 

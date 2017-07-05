@@ -2,27 +2,38 @@
 
 usageInfo() {
   echo 'Remote control the Stage-Squirrel installation in our Vagrant VM somewhat:'
-  echo '    -r, --restart  Remotely call "stagesquirrel restart".'
-  echo '    -s, --status   Remotely call "stagesquirrel status".'
-  echo '    -u, --update   Remotely call "git pull" on the current installation.'
+  echo '    -r           Remotely call "stagesquirrel restart".'
+  echo '    -s           Remotely call "stagesquirrel status".'
+  echo '    -u           Remotely call "git pull" on the current installation.'
+  echo '    -o<username> Turn an already registered user into an admin.'
+  echo '    -u<username> Revoke admin access for an already registered user.'
 }
 
 # [Main]:
-if test $# -eq 1; then
-  case "$1" in
-    -r|--restart)
+while getopts ":rsuo:d:" opt; do
+  case $opt in
+    r)
       bash ./bin/restart-app.sh
       ;;
-    -s|--status)
+    s)
       bash ./bin/app-status.sh
       ;;
-    -u|--update)
+    u)
       bash ./bin/update-app.sh
       ;;
-    *)
+    o)
+      bash ./bin/app-op.sh $OPTARG
+      ;;
+    d)
+      bash ./bin/app-deop.sh $OPTARG
+      ;;
+    \?)
       usageInfo
+      exit 1
+      ;;
+    :)
+      usageInfo
+      exit 1
       ;;
   esac
-else
-  usageInfo
-fi
+done
