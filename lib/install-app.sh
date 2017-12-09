@@ -16,8 +16,14 @@ echo 'done.'
 # Configure EF/Stage-Squirrel
 git checkout develop
 
+## Prepare config/logrotate.conf
+echo 'Configuring config/logrotate.conf ...'
+cp config/logrotate.conf.dist config/logrotate.conf
+echo 'done.'
+
 ## Prepare config/startup.conf
 echo 'Configuring config/startup.conf ...'
+cp config/startup.conf.dist config/startup.conf
 SQ_LOGDIR=$PWD/log
 NODE_HOME=$(which node | sed 's!/node!!g')
 sed -n -e \
@@ -34,12 +40,13 @@ echo 'done.'
 
 ## Prepare config/config.js
 echo 'Configuring config/config.js ...'
+cp config/config.js.dist config/config.js
 node -e "
 var e=process.env;
 var c=require('./config/config.js');
 if(c){
   c.listenport=e.SQ_APP_LISTEN_PORT;
-  c.baseurl='localhost:'+e.SQ_APP_LISTEN_PORT;
+  c.baseurl='http://localhost:'+e.SQ_APP_LISTEN_PORT;
   c.telegramfeedbackid=e.SQ_TELEGRAM_FEEDBACK_ID;
   c.database=c.database||{};
   c.database.host=e.SQ_DB_HOST;

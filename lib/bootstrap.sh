@@ -24,14 +24,14 @@ service nginx start
 # Set up NGINX server
 echo \
 'server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
+  listen 80 default_server;
+  listen [::]:80 default_server;
   server_name _;
   location / {
     proxy_pass http://127.0.0.1:'"$SQ_APP_LISTEN_PORT"';
   }
 }
-' >  /etc/nginx/sites-available/default
+' > /etc/nginx/sites-available/default
 chmod 644 /etc/nginx/sites-available/default
 ln -sf \
   /etc/nginx/sites-available/default \
