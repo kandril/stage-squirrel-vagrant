@@ -4,14 +4,24 @@ usageInfo() {
   echo 'Remote control the Stage-Squirrel installation in our Vagrant VM somewhat:'
   echo '    -r           Remotely call "stagesquirrel restart".'
   echo '    -s           Remotely call "stagesquirrel status".'
+  echo '    -b           Remotely call "node debug server.js".'
   echo '    -u           Remotely call "git pull" on the current installation.'
   echo '    -o<username> Turn an already registered user into an admin.'
-  echo '    -u<username> Revoke admin access for an already registered user.'
+  echo '    -d<username> Revoke admin access for an already registered user.'
 }
 
 # [Main]:
-while getopts ":rsuo:d:" opt; do
+while getopts ":bd:o:rsu" opt; do
   case $opt in
+    b)
+      bash ./bin/app-debug.sh
+      ;;
+    d)
+      bash ./bin/app-deop.sh $OPTARG
+      ;;
+    o)
+      bash ./bin/app-op.sh $OPTARG
+      ;;
     r)
       bash ./bin/restart-app.sh
       ;;
@@ -20,12 +30,6 @@ while getopts ":rsuo:d:" opt; do
       ;;
     u)
       bash ./bin/update-app.sh
-      ;;
-    o)
-      bash ./bin/app-op.sh $OPTARG
-      ;;
-    d)
-      bash ./bin/app-deop.sh $OPTARG
       ;;
     \?)
       usageInfo

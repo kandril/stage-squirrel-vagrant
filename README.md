@@ -13,7 +13,7 @@ This is a simple VM setup for testing the [EF/Stage-Squirrel](https://github.com
 
 ## Tools
 * This vagrant VM project is also shipped with a neat **remote** helper script.
-* If you need to make use of it, just `chmod a+x remote` in your git-cloned directory and have a look at the usage-info of the **remote** by entering `./remote`.
+* If you need to make use of it, just `chmod a+x remote` in your git-cloned directory and have a look at the usage-info of the **remote** by entering `./remote -h`.
 * Have fun =]
 
 ## Troubleshooting
